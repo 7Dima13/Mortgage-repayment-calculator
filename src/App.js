@@ -1,4 +1,4 @@
-import Forms from "./features/Form/AddForms";
+import Forms from "./features/Form/AddForm/AddForms";
 
 import "./App.css";
 

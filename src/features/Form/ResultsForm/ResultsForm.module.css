@@ -1,0 +1,40 @@
+.resultContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.resultContainer h3 {
+    font-size: 25px;
+    text-align: left;
+}
+
+.resultContainer p {
+    color: #9ABED5;
+    font-size: 18px;
+    text-align: left;
+}
+
+.resultContainerMonthly p:first-child {
+    color: #9ABED5;
+    font-size: 18px;
+    text-align: left;
+}
+
+.resultContainerMonthly p:last-child {
+    color: #D8DB2F;
+    font-weight: bolder;
+    text-align: left;
+    font-size: 25px;
+}
+
+.resultContainerTotal p:first-child {
+    text-align: left;
+    color: #9ABED5;
+    font-size: 18px;
+}
+
+.resultContainerTotal p:last-child {
+    text-align: left;
+    color: #FFFFFF;
+    font-size: 25px;
+}

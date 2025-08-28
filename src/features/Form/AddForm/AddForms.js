@@ -1,47 +1,65 @@
 import React, { useState } from "react";
 import styles from "./AddForms.module.css";
+import ResultsForm from "../ResultsForm/ResultsForm";
 
 const AddForms = () => {
   const [amount, setAmount] = useState("");
   const [term, setTerm] = useState("");
   const [rate, setRate] = useState("");
   const [radio, setRadio] = useState("");
-  const [monthlyRepayment, setMonthlyRepayment] = useState("null");
+  const [monthlyRepayment, setMonthlyRepayment] = useState({
+    monthly: 0,
+    total: 0,
+  });
   const [showResults, setShowResults] = useState(true);
   const [errors, setErrors] = useState({
     mortgageAmount: "",
     mortgageTermn: "",
     interestRate: "",
-    repayement: "",
+    repayment: "",
     interinterestOnly: "",
   });
 
   const handleSubmiit = e => {
     e.preventDefault();
 
-    const newErrors = {};
+    validate();
+    calculateSum();
+    setShowResults(false);
+  };
 
-    if (!amount || amount <= 0) {
-      newErrors.mortgageAmount = "Enter a valid mortgage amount";
-    }
-    if (!term || term <= 0) {
-      newErrors.mortgageTermn = "Enter a valid term";
-    }
-    if (!rate || rate <= 0) {
-      newErrors.interestRate = "Enter a valid interest rate";
-    }
-    if (!radio) {
-      newErrors.repayement = "Please select a mortgage type";
-    }
+  const handleRadioChange = e => {
+    const radio = e.target.value;
+    setRadio(radio);
+  };
 
-    // Якщо є помилки
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
-    }
+  const clearButton = e => {
+    setAmount(0);
+    setTerm(0);
+    setRate(0);
+    setRadio("repayment");
+    setMonthlyRepayment("");
+    setErrors({
+      mortgageAmount: "",
+      mortgageTermn: "",
+      interestRate: "",
+      repayment: "",
+      interinterestOnly: "",
+    });
+    setShowResults(true);
+  };
 
-    setErrors({}); // Очистка, якщо все добре
+  const validate = () => {
+    const errors = {};
+    if (!amount || amount <= 0)
+      errors.mortgageAmount = "Enter a valid mortgage amount";
+    if (!term || term <= 0) errors.mortgageTermn = "Enter a valid term";
+    if (!rate || rate <= 0) errors.interestRate = "Enter a valid interest rate";
+    if (!radio) errors.repayment = "Please select a mortgage type";
+    return setErrors(errors);
+  };
 
+  const calculateSum = () => {
     const principal = Number(amount);
     const annualRate = Number(rate) / 100;
     const monthlyRate = annualRate / 12;
@@ -50,7 +68,7 @@ const AddForms = () => {
     let monthlyPayment = 0;
     let totalRepayment = 0;
 
-    if (radio === "repayement") {
+    if (radio === "repayment") {
       monthlyPayment =
         (principal * (monthlyRate * Math.pow(1 + monthlyRate, totalPayments))) /
         (Math.pow(1 + monthlyRate, totalPayments) - 1);
@@ -68,29 +86,6 @@ const AddForms = () => {
         maximumFractionDigits: 2,
       }),
     });
-
-    setShowResults(false);
-  };
-
-  const handleRadioChange = e => {
-    const radio = e.target.value;
-    setRadio(radio);
-  };
-
-  const clearButton = e => {
-    setAmount(0);
-    setTerm(0);
-    setRate(0);
-    setRadio("repayement");
-    setMonthlyRepayment("");
-    setErrors({
-      mortgageAmount: "",
-      mortgageTermn: "",
-      interestRate: "",
-      repayement: "",
-      interinterestOnly: "",
-    });
-    setShowResults(true);
   };
 
   return (
@@ -168,13 +163,13 @@ const AddForms = () => {
             <label>
               <input
                 type="radio"
-                className="repayement"
-                id="repayement"
-                value="repayement"
-                checked={radio === "repayement"}
+                className="repaement"
+                id="repayment"
+                value="repayment"
+                checked={radio === "repayment"}
                 onChange={handleRadioChange}
               />
-              Repayement
+              Repayment
             </label>
 
             <label>
@@ -189,8 +184,8 @@ const AddForms = () => {
               Interinterest Only
             </label>
           </div>
-          {errors.repayement && (
-            <p className={styles.error}>{errors.repayement}</p>
+          {errors.repayment && (
+            <p className={styles.error}>{errors.repayment}</p>
           )}
         </div>
 
@@ -199,7 +194,7 @@ const AddForms = () => {
           type="button"
           onClick={handleSubmiit}
         >
-          <span> Calculate Repayments</span>
+          Calculate Repayments
         </button>
       </div>
 
@@ -214,22 +209,7 @@ const AddForms = () => {
           </div>
         ) : (
           <div>
-            <h3>Your results</h3>
-            <p>
-              Your results are shown below based on the information you
-              provided. To adjust the results, edit the form and click
-              “calculate repayments” again.
-            </p>
-            <div className={styles.resultContainer}>
-              <div className={styles.resultContainerMonthly}>
-                <p>Your monthly repayments</p>
-                <p>£{monthlyRepayment.monthly}</p>
-              </div>
-              <div className={styles.resultContainerTotal}>
-                <p>Total you'll repay over the term</p>
-                <p>£{monthlyRepayment.total}</p>
-              </div>
-            </div>
+            <ResultsForm monthlyRepayment={monthlyRepayment} />
           </div>
         )}
       </div>

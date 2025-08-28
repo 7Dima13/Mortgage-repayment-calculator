@@ -1,0 +1,166 @@
+.containerMortgageFroms{
+    display: flex;
+    background: #FFFFFF;
+    border-radius: 10px;
+    overflow: hidden;
+    flex-direction: row;
+    margin: 20px;
+}
+
+.form{
+    flex: 1;
+    background: #FFF;
+    padding: 2rem;   
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;    
+}   
+
+.inputBtn{
+    background-color: #D8DB2F;
+    border: none;
+    border-radius: 5px;
+    padding: 0.75rem;
+    margin-top: 1.5rem;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.clearBtn{
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration-line: underline;
+    color: #4E6E7E;
+}
+
+.label{
+    display: block;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.inputWithPrefix, 
+.inputWithSuffix{
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;    
+}
+
+.inputWithPrefix span,
+.inputWithSuffix span {
+ background: #e6f0f6;;
+ padding: 0.5rem 1rem;
+ font-weight: bold;
+}
+
+.inputWithPrefix input,
+.inputWithSuffix input {
+    border: none;
+    outline: none;
+    flex: 1;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.inputWithPrefix:focus-within span {
+    background-color: #D8DB2F;
+}
+
+.inputWithPrefix input:focus {
+    border: 2px solid #D8DB2F;
+} 
+
+.inputWithSuffix input:hover + span,
+.inputWithSuffix input:focus + span {
+    border: 2px solid #D8DB2F;
+    background-color: #D8DB2F;
+}
+
+.row{
+    display: flex;
+    gap: 1rem;
+}
+
+.radioGroup{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.resultSection{
+    flex: 1;
+    background: #0b3049;
+    color: #fff;
+    padding: 2rem;
+    text-align: center;
+    border-radius: 5px;
+    border-bottom-left-radius: 20%;
+}
+
+.error {
+    color: red;
+    font-size: 0.85rem;
+    margin-top: 4px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.resultShown  h3{
+    font-size: 25px;
+   
+}
+
+.resultShown p {
+    color: #9ABED5;
+    font-size: 18px;
+   
+}
+
+
+
+@media(max-width: 1025px) {
+    .containerMortgageFroms {
+        flex-direction: column;
+        margin: 5px;
+    }
+    .resultContainer {
+    background-color: #0d2b3e;
+    padding: 20px;
+    border-radius: 8px;
+    border-top: 4px solid #d8db2f;
+    margin-top: 20px;
+    text-align: center;
+    }
+    .resultSection{
+    border-bottom-left-radius: 0;
+    }
+} 
+
+@media(max-width: 768px) {
+    .containerMortgageFroms {
+        flex-direction: column;
+        margin: 0;
+    }
+    .form{
+        display: flex;
+        flex-direction: column;
+    }
+    .row{
+    flex-direction: column;
+    }
+}
